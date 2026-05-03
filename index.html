@@ -6,18 +6,28 @@
     <title>Dwelling on the Hill - A Psychological Horror Experience</title>
     <meta name="description" content="No monsters. No jumpscares. Just a house on a hill that shouldn't exist. Enter. Descend. Remember.">
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts for cinematic typography -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="cursor-glow"></div>
     <div id="noise-overlay"></div>
+    <div id="vignette"></div>
+
+    <!-- Entry Screen for Audio Context -->
+    <div id="entry-screen">
+        <div class="entry-content">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="headphones-icon"><path d="M3 18v-6a9 9 0 0 1 18 0v6M3 18h4v-7H3v7zm14-7h4v7h-4v-7z"></path></svg>
+            <h2 class="cinzel">Headphones Strongly Recommended</h2>
+            <p>This experience uses generative 3D audio.</p>
+            <button id="enter-btn" class="btn btn-ghost">Enter the House</button>
+        </div>
+    </div>
 
     <!-- Hero Section -->
-    <header class="hero">
-        <div class="hero-bg"></div>
+    <header class="hero" id="parallax-container">
+        <div class="hero-bg" id="parallax-bg"></div>
         <div class="hero-content fade-in">
-            <h1 class="title">DWELLING ON THE HILL</h1>
+            <h1 class="title glitch-text" data-text="DWELLING ON THE HILL">DWELLING ON THE HILL</h1>
             <p class="tagline">If you stare into the abyss long enough, the abyss stares back.</p>
             <div class="cta-container">
                 <a href="#about" class="btn btn-ghost">Uncover the Secret</a>
@@ -37,7 +47,7 @@
     <section class="hook-section" id="about">
         <div class="container">
             <p class="hook-text reveal-text">
-                No monsters. No jumpscares. Just a house on a hill that shouldn't exist, built by a man who wanted to protect the world from what lives beneath it. <br><br>The doors are locked. The walls breathe. Every room tells you what happened here — if you're willing to listen. <br><br><strong>Enter. Descend. Remember.</strong>
+                No monsters. No jumpscares. Just a house on a hill that shouldn't exist, built by a man who wanted to protect the world from what lives beneath it. <br><br>The doors are locked. The walls breathe. Every room tells you what happened here — if you're willing to listen. <br><br><strong class="blood-text">Enter. Descend. Remember.</strong>
             </p>
         </div>
     </section>
@@ -49,13 +59,27 @@
                 <h2 class="section-title fade-up">The Descent</h2>
                 <p class="fade-up delay-1">A man of faith discovered something beneath the mountain — a wound in the earth that whispered with a voice older than prayer. He built his home directly above it. Not to worship what lay below, but to <strong>seal it forever</strong>.</p>
                 <p class="fade-up delay-2">To silence the enemy, he studied its language. To break its seals, he read its books. To understand its words, he listened to its whispers.</p>
-                <p class="fade-up delay-3 highlight-text">He listened too long.</p>
+                <p class="fade-up delay-3 highlight-text glitch-text-subtle" data-text="He listened too long.">He listened too long.</p>
                 <p class="fade-up delay-4">Now the house stands empty on the hilltop. The windows are nailed shut — from the inside. Salt lines guard every threshold. Not to keep things out, but to keep something <strong>in</strong>.</p>
                 <p class="fade-up delay-5">You are Elias. You came looking for a story. The door locked behind you.<br><strong>There is no exit.</strong></p>
             </div>
             <div class="visual-content fade-up delay-3">
-                <!-- Abstract visual element -->
                 <div class="abyss-circle"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Mechanic Preview (AAA touch) -->
+    <section class="interactive-lore">
+        <div class="container center">
+            <h2 class="cinzel fade-up">The Heavy Door</h2>
+            <p class="fade-up delay-1 interact-subtitle">Doors in this house do not open with a button press. They resist.</p>
+            <div class="door-container fade-up delay-2" id="door-interactive">
+                <div class="door-progress-bg"></div>
+                <div class="door-text">Click and hold to push</div>
+                <div class="hidden-lore">
+                    <p class="cinzel">"I prayed to God. He didn't answer. I prayed to them. They did."</p>
+                </div>
             </div>
         </div>
     </section>
@@ -65,21 +89,21 @@
         <div class="container">
             <h2 class="section-title center fade-up">How It Plays</h2>
             <div class="grid">
-                <div class="card fade-up delay-1">
+                <div class="card fade-up delay-1 hover-glitch">
                     <h3>Touch Everything</h3>
-                    <p>Pick up, carry, and throw nearly every object in the house. Pull key items into focus and rotate them to read hidden notes. Every surface tells a piece of the story.</p>
+                    <p>Pick up, carry, and throw nearly every object in the house. Pull key items into focus and rotate them to read hidden notes.</p>
                 </div>
-                <div class="card fade-up delay-2">
+                <div class="card fade-up delay-2 hover-glitch">
                     <h3>Open Slowly</h3>
-                    <p>Doors don't swing open with a button press. You push them with your hand, feeling the hinges resist. What's behind them is your problem.</p>
+                    <p>Doors don't swing open. You push them with your mouse, feeling the physics and resistance. What's behind them is your problem.</p>
                 </div>
-                <div class="card fade-up delay-3">
+                <div class="card fade-up delay-3 hover-glitch">
                     <h3>Listen Before You Enter</h3>
-                    <p>In the depths below the house, wrong doors mean death. Press close. Listen. If you hear breathing — walk away. The silent door is the safe one.</p>
+                    <p>In the depths, wrong doors mean death. Press close. Listen. If you hear breathing — walk away. The silent door is the safe one.</p>
                 </div>
-                <div class="card fade-up delay-4">
+                <div class="card fade-up delay-4 hover-glitch">
                     <h3>Trust Nothing</h3>
-                    <p>The house watches you. Rooms shift when you're not looking. The warm light behind a keyhole is a lie. The rules you learn will be taken from you, one by one.</p>
+                    <p>The house watches you. Rooms shift when you're not looking. The warm light behind a keyhole is a trap.</p>
                 </div>
             </div>
         </div>
@@ -90,7 +114,7 @@
             <h2 class="cinzel fade-up">"He who fights the dragon long enough becomes the dragon."</h2>
             <p class="fade-up delay-1">Someone lived here. He wanted to save the world. But the voice from below was louder than the silence of God.</p>
             <div class="footer-links fade-up delay-2">
-                <a href="mailto:contact@dwellingonthehill.com">Press Kit</a>
+                <a href="#">Press Kit</a>
                 <a href="#">Twitter</a>
                 <a href="#">Discord</a>
             </div>
