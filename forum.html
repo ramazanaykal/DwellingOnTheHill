@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Backwoods Boards - Warning about that old house on the ridge</title>
+    <style>
+        /* Phase 1: Authentic 2004 vBulletin Aesthetic */
+        body {
+            background-color: #E1E1E2;
+            color: #000000;
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 13px;
+            margin: 0; padding: 0;
+        }
+        a { color: #22229C; text-decoration: none; }
+        a:hover { color: #FF4400; text-decoration: underline; }
+
+        .page-wrapper {
+            width: 95%; max-width: 950px; margin: 15px auto;
+            background: #FFFFFF; border: 1px solid #0B198C;
+        }
+        
+        .header { background: #0F57A3; color: #FFFFFF; padding: 20px 15px; }
+        .header h1 { margin: 0; font-size: 24px; font-weight: normal; letter-spacing: 1px;}
+        .header p { margin: 5px 0 0 0; font-size: 11px; color: #D0E4F6; }
+
+        .navbar { background: #E0E0F6; padding: 6px 10px; border-bottom: 1px solid #0B198C; font-size: 11px; }
+        .navbar-links { float: right; }
+        
+        .breadcrumbs { padding: 10px 15px; font-weight: bold; font-size: 12px; }
+
+        .thread-table { width: 100%; border-collapse: collapse; border-top: 1px solid #0B198C; }
+        .thread-header { background: #5C7099; color: #FFFFFF; padding: 6px 10px; font-weight: bold; font-size: 12px; text-align: left; border-bottom: 1px solid #0B198C;}
+        
+        .post-row { border-bottom: 1px solid #0B198C; }
+        .post-user { 
+            width: 160px; background: #E4E7F5; padding: 10px; 
+            vertical-align: top; border-right: 1px solid #0B198C; 
+            text-align: center;
+        }
+        .post-user b { font-size: 14px; color: #000066; }
+        .user-title { font-size: 10px; margin: 5px 0; }
+        
+        /* Fake 2004 Avatar */
+        .avatar { 
+            width: 80px; height: 80px; border: 1px solid #000; margin: 5px auto; 
+            background: #ccc; display: flex; align-items: center; justify-content: center;
+            font-size: 10px; color: #555;
+        }
+        .post-stats { font-size: 10px; color: #444; text-align: left; margin-top: 10px; padding-left: 10px;}
+
+        .post-content { background: #F5F5FF; padding: 10px 15px; vertical-align: top; }
+        .post-date { font-size: 10px; color: #666; margin-bottom: 15px; border-bottom: 1px solid #D1D1E1; padding-bottom: 5px; }
+        .post-text { font-size: 13px; line-height: 1.5; min-height: 180px; }
+        .signature { border-top: 1px dashed #CCC; margin-top: 40px; padding-top: 10px; font-size: 11px; color: #666; }
+
+        .controls { padding: 15px; text-align: right; background: #E0E0F6; border-top: 1px solid #0B198C; }
+        .btn-reply { 
+            background: #E0E0F6; border: 1px solid #0B198C; padding: 4px 12px; 
+            font-size: 12px; font-family: Verdana; font-weight: bold; cursor: pointer; color: #000; 
+        }
+        .btn-reply:hover { background: #FFFFFF; }
+
+        /* Fake Post 2 for authenticity */
+        .post-row.alt .post-user { background: #DFE2F0; }
+        .post-row.alt .post-content { background: #E8EFF7; }
+
+        .page-wrapper { transition: filter 5s ease, opacity 5s ease, transform 5s ease; }
+        
+        /* Phase 2: The Curse */
+        body.corrupted { 
+            background-color: transparent; 
+            transition: background-color 8s ease; 
+        }
+        .page-wrapper.melting { 
+            transition: filter 8s cubic-bezier(0.4, 0, 0.2, 1), opacity 8s ease, transform 8s ease !important;
+            filter: blur(4px) contrast(3) sepia(1) hue-rotate(-30deg) saturate(8) brightness(1.5) !important;
+            opacity: 0 !important; 
+            transform: scale(1.1) !important; 
+            pointer-events: none; 
+        }
+        .redacted { background: #000; color: #000; user-select: none; }
+
+        /* Phase 3: The Reveal */
+        #scare-text {
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            color: #ffffff; font-family: "Times New Roman", Times, serif; font-size: 2rem;
+            text-align: center; letter-spacing: 3px; z-index: 50; width: 100%;
+            animation: slowFadeIn 2s ease forwards;
+        }
+        
+        @keyframes slowFadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        #reveal-section {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: rgba(0, 0, 0, 0.4); z-index: 100; opacity: 0; pointer-events: none;
+            transition: opacity 3s ease;
+            font-family: 'Inter', Arial, sans-serif;
+            color: #e0e0e0; text-align: center; padding: 2rem; box-sizing: border-box;
+        }
+        #reveal-section.visible { opacity: 1; pointer-events: all; }
+        .reveal-text {
+            font-size: 1.5rem; max-width: 800px; margin-bottom: 4rem; line-height: 1.8;
+            font-weight: 300; letter-spacing: 1px;
+            text-shadow: 0 0 20px black, 0 0 40px black;
+        }
+        .reveal-text strong { color: #fff; font-weight: bold; }
+        
+        .btn-steam {
+            background: #050505; color: white; text-decoration: none; padding: 18px 40px; font-size: 1.2rem;
+            border: 1px solid #8b0000; text-transform: uppercase; letter-spacing: 3px;
+            animation: pulse 2s infinite ease-in-out; cursor: pointer; transition: all 0.3s;
+        }
+        .btn-steam:hover { background: #8b0000; transform: scale(1.05); box-shadow: 0 0 30px rgba(139, 0, 0, 0.8); }
+
+        .btn-back {
+            background: transparent; color: #888; text-decoration: none; padding: 18px 40px; font-size: 1.2rem;
+            border: 1px solid #333; text-transform: uppercase; letter-spacing: 3px;
+            cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center;
+        }
+        .btn-back:hover { background: #111; color: #fff; border-color: #666; }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(139, 0, 0, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(139, 0, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(139, 0, 0, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-wrapper" id="wrapper">
+        <div class="header">
+            <h1>The Backwoods Boards</h1>
+            <p>Your local discussion for hunting, farming, and community news.</p>
+        </div>
+        
+        <div class="navbar">
+            Welcome, <b>Guest</b>. Please <a href="#">Login</a> or <a href="#">Register</a>.
+            <div class="navbar-links">
+                <a href="index.html">Return to Main Site</a> | <a href="#">FAQ</a> | <a href="#">Search</a> | <a href="#">Memberlist</a>
+            </div>
+        </div>
+
+        <div class="breadcrumbs">
+            <a href="index.html">The Backwoods Boards</a> &gt; <a href="#">General Discussion</a> &gt; <a href="#">Local Reports</a> &gt; Warning about that old house on the ridge
+        </div>
+
+        <table class="thread-table">
+            <tr>
+                <td colspan="2" class="thread-header">Warning about that old house on the ridge</td>
+            </tr>
+            
+            <!-- Main Post -->
+            <tr class="post-row">
+                <td class="post-user">
+                    <b>pickup_driver35</b><br>
+                    <div class="user-title">Senior Member</div>
+                    <div class="avatar">[Image]</div>
+                    <div class="post-stats">
+                        Joined: Apr 2002<br>
+                        Location: Valley<br>
+                        Posts: 412
+                    </div>
+                </td>
+                <td class="post-content">
+                    <div class="post-date">
+                        <img src="data:image/svg+xml;utf8,<svg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'><rect width='10' height='10' fill='%23aaa'/></svg>" alt="icon" style="vertical-align: middle;"> 
+                        Posted: Oct 12, 2004, 08:42 PM
+                    </div>
+                    <div class="post-text" id="target-post">
+                        I swear to God, last week while I was herdin' our flock, one of the goats done wandered off toward that old wooden shack. Went chasing after it and found myself right up yonder. The old folks always used to say don't go up there, but Lord, I never paid it no mind, figured it was just old wives' tales. Right now, I'm short three goats. <br><br>
+                        When I found the place, I didn't go inside, windows was all boarded up thick from the inside anyway. But 'round the house... how do I put it, there was this awful heavy stench, like rotten eggs or a dead carcass. I was 'bout to turn tail and leave when... I heard a sound from inside. Weren't no wind neither. Sounded like somebody chantin' a hymn in there, but the words were all twisted up, like they was saying 'em with some wicked intent. <br><br>
+                        I swear on my life, I ain't never going up that ridge again. If anybody's headed that way, you best watch your step. That house ain't right.
+                    </div>
+                    <div class="signature">
+                        "1998 Ford F-150. God, Family, Farming."
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Fake Reply -->
+            <tr class="post-row alt">
+                <td class="post-user">
+                    <b>HuntersMark</b><br>
+                    <div class="user-title">Member</div>
+                    <div class="avatar">[Image]</div>
+                    <div class="post-stats">
+                        Joined: Jan 2003<br>
+                        Posts: 89
+                    </div>
+                </td>
+                <td class="post-content">
+                    <div class="post-date">
+                        <img src="data:image/svg+xml;utf8,<svg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'><rect width='10' height='10' fill='%23aaa'/></svg>" alt="icon" style="vertical-align: middle;"> 
+                        Posted: Oct 12, 2004, 09:15 PM
+                    </div>
+                    <div class="post-text">
+                        You're crazy man. I've hunted that ridge for years. There's nothing up there but old timber and maybe a bear. You probably just heard the wind through the pines. Still, sorry about your goats. Probably a coyote got em.
+                    </div>
+                </td>
+            </tr>
+        </table>
+        
+        <div class="controls">
+            <button class="btn-reply" id="reply-btn">Post Reply</button>
+        </div>
+    </div>
+
+    <!-- The Climax Scare Text -->
+    <div id="scare-text">THE DOORS WERE LOCKED.<br><br>HE LISTENED.<br><br>YOU LISTEN TOO.</div>
+
+    <!-- The Final Reveal -->
+    <div id="reveal-section">
+        <p class="reveal-text">No monsters. No jumpscares. Just a house on a hill that shouldn't exist, built by a man who wanted to protect the world from what lives beneath it. The doors are locked. The walls breathe. Every room tells you what happened here, if you're willing to listen.<br><br><strong>Enter. Descend. Remember.</strong></p>
+        <div style="display: flex; gap: 20px; justify-content: center; width: 100%;">
+            <a href="index.html" class="btn-back">Go Back</a>
+            <a href="https://store.steampowered.com/app/4022170/Dwelling_on_the_Hill/" class="btn-steam">Wishlist on Steam</a>
+        </div>
+    </div>
+
+    <script>
+        const replyBtn = document.getElementById('reply-btn');
+        const postText = document.getElementById('target-post');
+        const wrapper = document.getElementById('wrapper');
+        let isTriggered = false;
+
+        function playThud(freq = 45) {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                // Fix: Removed extreme pitch drop which causes a comedic 'laser' sound
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime); 
+                osc.frequency.exponentialRampToValueAtTime(20, audioCtx.currentTime + 0.5);
+                
+                gain.gain.setValueAtTime(2.0, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.8);
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 1);
+            } catch(err){}
+        }
+
+        function playRotSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Fix: Removed the ascending sine wave which caused a comedic 'UFO whistle' sound.
+                // Replaced with a massive, filtered organic earthquake rumble.
+                const rumble = audioCtx.createOscillator();
+                const rumbleGain = audioCtx.createGain();
+                const filter = audioCtx.createBiquadFilter();
+                
+                rumble.type = 'sawtooth';
+                rumble.frequency.setValueAtTime(40, audioCtx.currentTime);
+                rumble.frequency.linearRampToValueAtTime(15, audioCtx.currentTime + 8);
+                
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(150, audioCtx.currentTime);
+                filter.frequency.linearRampToValueAtTime(50, audioCtx.currentTime + 8);
+                
+                rumbleGain.gain.setValueAtTime(0, audioCtx.currentTime);
+                rumbleGain.gain.linearRampToValueAtTime(3.0, audioCtx.currentTime + 5);
+                rumbleGain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 9);
+                
+                rumble.connect(filter);
+                filter.connect(rumbleGain);
+                rumbleGain.connect(audioCtx.destination);
+                
+                rumble.start();
+                rumble.stop(audioCtx.currentTime + 9);
+            } catch(err){}
+        }
+
+        replyBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if(isTriggered) return;
+            isTriggered = true;
+            
+            // 1. Silent Lock
+            replyBtn.outerHTML = "<span style='color: #000; font-size: 11px; font-weight: normal; cursor: default;'>there is no reply</span>";
+            playThud(30);
+
+            // 2. The Slow Burn Begins
+            document.body.classList.add('corrupted');
+            
+            setTimeout(() => {
+                // The actual DOM melts into glowing yellow/orange sludge
+                wrapper.classList.add('melting');
+                
+                // 3. START THE CANVAS IN THE BACKGROUND (z-index: -1)
+                canvas.style.zIndex = '-1'; 
+                canvas.style.display = 'block';
+                eyeSpawnTime = Date.now();
+                playRotSound();
+                drawBlindEye();
+                
+                // 4. Wait for the 8-second transition to finish
+                setTimeout(() => {
+                    wrapper.style.display = 'none';
+                    document.body.style.cursor = 'none'; 
+                    
+                    playThud(45); 
+                    const scareText = document.getElementById('scare-text');
+                    scareText.innerHTML = "THE DOORS ARE LOCKED.<br><br>THERE IS NO EXIT.";
+                    scareText.style.display = 'block';
+                    scareText.style.textShadow = '0 0 30px black'; 
+                    
+                    // 5. Transition to final promo screen
+                    setTimeout(() => {
+                        scareText.style.display = 'none';
+                        document.body.style.cursor = 'auto'; 
+                        document.getElementById('reveal-section').classList.add('visible');
+                    }, 5000); 
+                    
+                }, 8500); // 8.5 seconds of slow-burn staring
+                
+            }, 100);
+        });
+
+        // --- CANVAS LOGIC ---
+        const canvas = document.createElement('canvas');
+        canvas.id = 'blind-eye-canvas';
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.width = '100vw';
+        canvas.style.height = '100vh';
+        canvas.style.zIndex = '-1'; 
+        canvas.style.display = 'none';
+        canvas.style.pointerEvents = 'none';
+        document.body.appendChild(canvas);
+
+        const ctx = canvas.getContext('2d');
+        let eyeAnimationId;
+        let grid = [];
+        const fontSize = 16;
+        
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let eyeX = mouseX;
+        let eyeY = mouseY;
+        let eyeSpawnTime = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initGrid();
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        function initGrid() {
+            grid = [];
+            const cols = Math.floor(window.innerWidth / fontSize) + 2;
+            const rows = Math.floor(window.innerHeight / fontSize) + 2;
+            for(let y=0; y<rows; y++) {
+                let row = [];
+                for(let x=0; x<cols; x++) {
+                    row.push({ char: Math.random() > 0.5 ? '1' : '0' });
+                }
+                grid.push(row);
+            }
+        }
+        resizeCanvas();
+
+        function drawBlindEye() {
+            const timeAlive = Date.now() - eyeSpawnTime; // ms since clicked
+            const time = Date.now() * 0.0012; 
+
+            ctx.shadowBlur = 0; 
+            ctx.fillStyle = '#020000'; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // 8-second slow awakening progress
+            let progress = Math.min(timeAlive / 8000, 1.0); 
+            
+            // The grid drops down slowly from 2.5x scale to 1x scale
+            let snapScale = 1 + (1.5 * Math.pow(1 - progress, 3)); 
+            
+            ctx.save();
+            ctx.translate(canvas.width/2, canvas.height/2);
+            ctx.scale(snapScale, snapScale);
+            ctx.translate(-canvas.width/2, -canvas.height/2);
+
+            ctx.font = fontSize + 'px monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+
+            eyeX += (mouseX - eyeX) * 0.04;
+            eyeY += (mouseY - eyeY) * 0.04;
+            
+            const maxRadius = Math.min(canvas.width, canvas.height) * 0.45;
+            const radius = maxRadius + Math.sin(time) * (maxRadius * 0.05); 
+            
+            // Violent trembling that calms down as the eye awakens
+            const baseBulge = 80 + Math.sin(time * 1.5) * 40; 
+            const bulge = baseBulge + ((1 - progress) * 150 * Math.random()); 
+
+            for(let y = 0; y < grid.length; y++) {
+                for(let x = 0; x < grid[y].length; x++) {
+                    let px = x * fontSize;
+                    let py = y * fontSize;
+                    
+                    let dx = px - eyeX;
+                    let dy = py - eyeY;
+                    let dist = Math.sqrt(dx*dx + dy*dy);
+                    
+                    let drawX = px;
+                    let drawY = py;
+                    
+                    if (dist < radius) {
+                        let nDist = dist / radius; 
+                        let force = Math.sin(nDist * Math.PI); 
+                        
+                        let angle = Math.atan2(dy, dx);
+                        drawX += Math.cos(angle) * force * bulge;
+                        drawY += Math.sin(angle) * force * bulge;
+                    }
+
+                    // Chaos Colors vs Cooled Colors
+                    let color = '#222222';
+                    if (progress < 1.0) {
+                        let heat = (1 - progress); 
+                        if (Math.random() < heat * 0.15) {
+                            // Sparks of burning yellow and orange as the Antichrist drops in
+                            color = `rgb(255, ${Math.floor(Math.random()*150 + 50)}, 0)`; 
+                        } else if (dist < radius * 0.8) {
+                            let intensity = Math.floor(40 + Math.sin(dist/radius * Math.PI * 4 - time*4) * 20);
+                            color = `rgb(${intensity + 30 + heat*80}, ${intensity}, ${intensity})`; 
+                        } else {
+                            color = '#333333'; 
+                        }
+                    } else {
+                        // Fully formed
+                        if (dist < radius * 0.3) {
+                            color = '#000000'; 
+                        } else if (dist < radius * 0.8) {
+                            let intensity = Math.floor(40 + Math.sin(dist/radius * Math.PI * 4 - time*4) * 20);
+                            color = `rgb(${intensity + 30}, ${intensity}, ${intensity})`; 
+                        } else {
+                            color = '#333333'; 
+                        }
+                    }
+
+                    // Frenzied character flipping during the awakening phase
+                    let flipChance = 0.999;
+                    if (progress < 1.0) flipChance = 0.90 + (progress * 0.099); 
+                    
+                    if(Math.random() > flipChance) {
+                        grid[y][x].char = grid[y][x].char === '1' ? '0' : '1'; 
+                    }
+                    
+                    ctx.fillStyle = color;
+                    ctx.fillText(grid[y][x].char, drawX, drawY);
+                }
+            }
+            ctx.restore();
+            eyeAnimationId = requestAnimationFrame(drawBlindEye);
+        }
+    </script>
+</body>
+</html>

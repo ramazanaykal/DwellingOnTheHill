@@ -12,13 +12,14 @@
     <div id="cursor-glow"></div>
     <div id="noise-overlay"></div>
     <div id="vignette"></div>
+    <button id="mute-btn" class="mute-btn" style="display: none;">🔊</button>
 
     <!-- Entry Screen for Audio Context -->
     <div id="entry-screen">
         <div class="entry-content">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="headphones-icon"><path d="M3 18v-6a9 9 0 0 1 18 0v6M3 18h4v-7H3v7zm14-7h4v7h-4v-7z"></path></svg>
-            <h2 class="cinzel">Headphones Strongly Recommended</h2>
-            <p>This experience uses generative 3D audio.</p>
+            <h2 class="cinzel">Headphones Recommended</h2>
+            <p>This experience uses generative ambient audio.</p>
             <button id="enter-btn" class="btn btn-ghost">Enter the House</button>
         </div>
     </div>
@@ -27,11 +28,14 @@
     <header class="hero" id="parallax-container">
         <div class="hero-bg" id="parallax-bg"></div>
         <div class="hero-content fade-in">
-            <h1 class="title glitch-text" data-text="DWELLING ON THE HILL">DWELLING ON THE HILL</h1>
+            <h1 class="title">DWELLING ON THE HILL</h1>
             <p class="tagline">If you stare into the abyss long enough, the abyss stares back.</p>
             <div class="cta-container">
                 <a href="#about" class="btn btn-ghost">Uncover the Secret</a>
-                <a href="#" class="btn btn-steam">
+                <!-- NEW FORUM LINK -->
+                <a href="forum.html" class="btn btn-ghost" style="border-color: #8b0000; color: #ff5555; text-shadow: 0 0 10px rgba(139,0,0,0.8);">Local Rumors (2004)</a>
+                <!-- DIRECT STEAM LINK -->
+                <a href="https://store.steampowered.com/app/4022170/Dwelling_on_the_Hill/" target="_blank" class="btn btn-steam">
                     <svg viewBox="0 0 24 24" fill="currentColor" class="steam-icon"><path d="M12 0C5.373 0 0 5.373 0 12c0 6.628 5.373 12 12 12 6.628 0 12-5.373 12-12C24 5.373 18.628 0 12 0zm7.149 9.387c-.015-.008-.03-.015-.046-.021l-3.328 1.38c-.461-.716-1.246-1.196-2.146-1.196-1.42 0-2.57 1.151-2.57 2.57 0 .285.05.556.136.809l-3.816 5.485c-.097.02-.197.03-.298.03-1.258 0-2.278-1.02-2.278-2.278s1.02-2.278 2.278-2.278c.365 0 .708.093 1.01.248l1.455-2.09c-1.397-.935-3.155-1.077-4.68-.316-2.029 1.008-2.859 3.473-1.85 5.502 1.009 2.03 3.474 2.86 5.503 1.85 1.583-.787 2.45-2.395 2.254-4.004l3.784-5.438c.241.08.5.124.768.124 1.42 0 2.57-1.15 2.57-2.57 0-1.421-1.15-2.57-2.57-2.57-.423 0-.818.106-1.168.288l3.418-1.417c.548 1.157.863 2.448.863 3.805 0 2.204-.79 4.225-2.096 5.808l-3.413-4.908c.594-.216 1.02-.782 1.02-1.451 0-.853-.692-1.545-1.545-1.545-.852 0-1.544.692-1.544 1.545 0 .852.692 1.545 1.544 1.545.244 0 .47-.06.666-.16l3.447 4.957c-1.636 1.408-3.791 2.257-6.134 2.257-5.111 0-9.253-4.142-9.253-9.253 0-5.111 4.142-9.253 9.253-9.253 5.111 0 9.253 4.142 9.253 9.253 0 .445-.035.882-.095 1.309l-3.036-1.258z"/></svg>
                     Wishlist on Steam
                 </a>
@@ -47,7 +51,7 @@
     <section class="hook-section" id="about">
         <div class="container">
             <p class="hook-text reveal-text">
-                No monsters. No jumpscares. Just a house on a hill that shouldn't exist, built by a man who wanted to protect the world from what lives beneath it. <br><br>The doors are locked. The walls breathe. Every room tells you what happened here — if you're willing to listen. <br><br><strong class="blood-text">Enter. Descend. Remember.</strong>
+                No monsters. No jumpscares. Just a house on a hill that shouldn't exist, built by a man who wanted to <span class="corruptible" data-alt="DESTROY THE WORLD FOR WHAT LIVES BENEATH IT">protect the world from what lives beneath it</span>. <br><br>The doors are locked. The walls breathe. Every room tells you what happened here — if you're willing to listen. <br><br><strong class="blood-text">Enter. Descend. Remember.</strong>
             </p>
         </div>
     </section>
@@ -57,11 +61,11 @@
         <div class="container split-layout">
             <div class="text-content">
                 <h2 class="section-title fade-up">The Descent</h2>
-                <p class="fade-up delay-1">A man of faith discovered something beneath the mountain — a wound in the earth that whispered with a voice older than prayer. He built his home directly above it. Not to worship what lay below, but to <strong>seal it forever</strong>.</p>
+                <p class="fade-up delay-1">A man of faith discovered something beneath the mountain — a wound in the earth that whispered with a voice older than prayer. He built his home directly above it. Not to worship what lay below, but to <strong class="corruptible" data-alt="LET IT FEED FOREVER">seal it forever</strong>.</p>
                 <p class="fade-up delay-2">To silence the enemy, he studied its language. To break its seals, he read its books. To understand its words, he listened to its whispers.</p>
                 <p class="fade-up delay-3 highlight-text glitch-text-subtle" data-text="He listened too long.">He listened too long.</p>
-                <p class="fade-up delay-4">Now the house stands empty on the hilltop. The windows are nailed shut — from the inside. Salt lines guard every threshold. Not to keep things out, but to keep something <strong>in</strong>.</p>
-                <p class="fade-up delay-5">You are Elias. You came looking for a story. The door locked behind you.<br><strong>There is no exit.</strong></p>
+                <p class="fade-up delay-4">Now the house stands empty on the hilltop. The windows are nailed shut — from the inside. Salt lines guard every threshold. Not to keep things out, but to keep something <strong class="corruptible" data-alt="STARVING">in</strong>.</p>
+                <p class="fade-up delay-5">You are Elias. You came looking for a story. The door locked behind you.<br><strong class="blood-text">There is no exit.</strong></p>
             </div>
             <div class="visual-content fade-up delay-3">
                 <div class="abyss-circle"></div>
@@ -69,7 +73,18 @@
         </div>
     </section>
 
-    <!-- Interactive Mechanic Preview (AAA touch) -->
+    <!-- Flashlight Mechanic Section -->
+    <section class="flashlight-section" id="flashlight-sec">
+        <div class="flashlight-layer" id="flashlight-bg"></div>
+        <div class="hidden-runes-layer" id="flashlight-runes"></div>
+        <div class="container center flashlight-content">
+            <h2 class="cinzel blood-text" style="font-size: 4rem;">DO NOT LOOK DOWN</h2>
+            <p style="font-size: 1.5rem;">The symbols on the floor... they are not for protection.</p>
+            <div class="hidden-symbols" style="font-size: 3rem; margin-top: 2rem; letter-spacing: 20px; opacity: 0.2;">🜏 🜔 🜚 🜛 🜍 🜏</div>
+        </div>
+    </section>
+
+    <!-- Interactive Mechanic Preview -->
     <section class="interactive-lore">
         <div class="container center">
             <h2 class="cinzel fade-up">The Heavy Door</h2>
@@ -102,7 +117,7 @@
                     <p>In the depths, wrong doors mean death. Press close. Listen. If you hear breathing — walk away. The silent door is the safe one.</p>
                 </div>
                 <div class="card fade-up delay-4 hover-glitch">
-                    <h3>Trust Nothing</h3>
+                    <h3 class="corruptible" data-alt="TRUST IT">Trust Nothing</h3>
                     <p>The house watches you. Rooms shift when you're not looking. The warm light behind a keyhole is a trap.</p>
                 </div>
             </div>
@@ -111,16 +126,19 @@
 
     <footer>
         <div class="container center">
-            <h2 class="cinzel fade-up">"He who fights the dragon long enough becomes the dragon."</h2>
+            <h2 class="cinzel fade-up corruptible" data-alt="HE WHO FIGHTS GOD BECOMES GOD">"He who fights the dragon long enough becomes the dragon."</h2>
             <p class="fade-up delay-1">Someone lived here. He wanted to save the world. But the voice from below was louder than the silence of God.</p>
             <div class="footer-links fade-up delay-2">
                 <a href="#">Press Kit</a>
-                <a href="#">Twitter</a>
-                <a href="#">Discord</a>
+                <a href="https://store.steampowered.com/app/4022170/Dwelling_on_the_Hill/" target="_blank">Steam Page</a>
             </div>
             <p class="copyright">© 2026 Dwelling on the Hill. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Fake Light Mode Overlay -->
+    <div id="flash-overlay" class="flash-overlay"></div>
+    <button id="light-mode-toggle" class="theme-toggle" aria-label="Toggle Light Mode">☀️ Light Mode</button>
 
     <script src="script.js"></script>
 </body>
