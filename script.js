@@ -34,19 +34,26 @@ document.addEventListener('DOMContentLoaded', () => {
         idleTimer = setTimeout(startHeartbeat, 4000); // 4 seconds of idle triggers paranoia
     }
 
-    document.addEventListener('mousemove', (e) => {
-        // Explicitly tracking cursor positions
-        cursorGlow.style.left = e.clientX + 'px';
-        cursorGlow.style.top = e.clientY + 'px';
+    function updateCursorPosition(x, y) {
+        cursorGlow.style.left = x + 'px';
+        cursorGlow.style.top = y + 'px';
         
         // --- Parallax Effect for Hero ---
-        const x = (e.clientX / window.innerWidth - 0.5) * 2;
-        const y = (e.clientY / window.innerHeight - 0.5) * 2;
-        document.getElementById('parallax-container').style.setProperty('--mouseX', x);
-        document.getElementById('parallax-container').style.setProperty('--mouseY', y);
+        const pX = (x / window.innerWidth - 0.5) * 2;
+        const pY = (y / window.innerHeight - 0.5) * 2;
+        document.getElementById('parallax-container').style.setProperty('--mouseX', pX);
+        document.getElementById('parallax-container').style.setProperty('--mouseY', pY);
 
         resetIdleTimer();
+    }
+
+    document.addEventListener('mousemove', (e) => {
+        updateCursorPosition(e.clientX, e.clientY);
     });
+
+    document.addEventListener('touchmove', (e) => {
+        if(e.touches.length > 0) updateCursorPosition(e.touches[0].clientX, e.touches[0].clientY);
+    }, {passive: true});
 
     // Make the cursor inner dot disappear when hovering clickables to show it's "focused"
     const clickables = document.querySelectorAll('a, button, .card, .door-container');
@@ -92,6 +99,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const rect = flashlightSec.getBoundingClientRect();
             targetX = e.clientX - rect.left;
             targetY = e.clientY - rect.top;
+        });
+
+        // Touch support for flashlight
+        flashlightSec.addEventListener('touchmove', (e) => {
+            if(e.touches.length > 0) {
+                isHoveringSec = true;
+                const rect = flashlightSec.getBoundingClientRect();
+                targetX = e.touches[0].clientX - rect.left;
+                targetY = e.touches[0].clientY - rect.top;
+            }
+        }, {passive: true});
+        
+        flashlightSec.addEventListener('touchend', () => {
+            isHoveringSec = false;
         });
 
         function animateFlashlight() {
@@ -295,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let holdInterval;
     let isOpened = false;
 
-    doorContainer.addEventListener('mousedown', () => {
+    const handleDoorHold = () => {
         if(isOpened) return;
         holdInterval = setInterval(() => {
             holdProgress += 1.5;
@@ -314,7 +335,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('vignette').style.background = 'radial-gradient(circle, transparent 20%, rgba(139,0,0,0.4) 100%)';
             }
         }, 30);
-    });
+    };
+
+    doorContainer.addEventListener('mousedown', handleDoorHold);
+    doorContainer.addEventListener('touchstart', (e) => {
+        // Only prevent default on the door container to allow holding without scrolling
+        e.preventDefault(); 
+        handleDoorHold();
+    }, {passive: false});
 
     const resetDoor = () => {
         if(!isOpened) {
@@ -327,6 +355,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     doorContainer.addEventListener('mouseup', resetDoor);
     doorContainer.addEventListener('mouseleave', resetDoor);
+    doorContainer.addEventListener('touchend', resetDoor);
+    doorContainer.addEventListener('touchcancel', resetDoor);
 
     // --- Scroll Reveal Animation ---
     const observer = new IntersectionObserver((entries, obs) => {
@@ -392,6 +422,61 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 flashOverlay.classList.remove('glitching');
             }, 1600);
+        });
+    }
+
+    // --- The Cursed Guestbook Logic ---
+    const sigForm = document.getElementById('signature-form');
+    const sigList = document.getElementById('signatures-list');
+    
+    const defaultSignatures = [
+        { name: "Father Elias", msg: "I couldn't save them. I locked the door." },
+        { name: "Sarah", msg: "It's so cold down here. Please." },
+        { name: "pickup_driver35", msg: "I shouldn't have gone back to that hill." }
+    ];
+
+    function renderSignatures() {
+        if (!sigList) return;
+        sigList.innerHTML = '';
+        
+        let userSigs = JSON.parse(localStorage.getItem('dwelling_signatures')) || [];
+        const allSigs = [...userSigs, ...defaultSignatures];
+        
+        allSigs.forEach(sig => {
+            const div = document.createElement('div');
+            div.className = 'signature-entry';
+            div.innerHTML = `<div class="sig-name">${sig.name}</div><div class="sig-msg">"${sig.msg}"</div>`;
+            sigList.appendChild(div);
+        });
+    }
+
+    if (sigForm) {
+        renderSignatures();
+        sigForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nameInput = document.getElementById('sig-name');
+            const msgInput = document.getElementById('sig-message');
+            
+            if(nameInput.value.trim() === '' || msgInput.value.trim() === '') return;
+            
+            playThud(150, 0.3); // Deep thud for saving
+            
+            const newSig = {
+                name: nameInput.value.trim(),
+                msg: msgInput.value.trim()
+            };
+            
+            let userSigs = JSON.parse(localStorage.getItem('dwelling_signatures')) || [];
+            userSigs.unshift(newSig); 
+            localStorage.setItem('dwelling_signatures', JSON.stringify(userSigs));
+            
+            nameInput.value = '';
+            msgInput.value = '';
+            
+            sigForm.style.opacity = '0.5';
+            sigForm.querySelector('button').innerText = "IT REMEMBERS YOU";
+            
+            renderSignatures();
         });
     }
 });

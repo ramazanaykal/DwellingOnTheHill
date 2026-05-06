@@ -290,3 +290,65 @@ footer p { color: #555; margin-bottom: 3rem; }
     50.1% { transform: scaleY(1); transform-origin: bottom; opacity: 1;}
     100% { transform: scaleY(0); transform-origin: bottom; opacity: 0;}
 }
+
+/* Guestbook Section */
+.guestbook-section { background: #010101; border-top: 1px solid rgba(139,0,0,0.2); }
+.guestbook-container { max-width: 600px; margin: 0 auto; background: rgba(10,0,0,0.5); padding: 2rem; border: 1px solid #300; border-radius: 5px; box-shadow: inset 0 0 50px rgba(0,0,0,0.8); }
+.signature-form { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem; }
+.signature-form input { 
+    background: transparent; border: none; border-bottom: 1px solid #555; 
+    color: #fff; padding: 10px; font-family: 'Cinzel', serif; font-size: 1.2rem;
+    outline: none; transition: border-color 0.3s;
+}
+.signature-form input:focus { border-bottom-color: var(--accent); }
+.signature-form input::placeholder { color: #444; font-family: 'Inter', sans-serif; font-size: 0.9rem; }
+.signatures-list { text-align: left; max-height: 300px; overflow-y: auto; padding-right: 10px; }
+.signature-entry { border-bottom: 1px solid rgba(255,255,255,0.05); padding: 1rem 0; animation: fadeIn 1s; }
+.signature-entry .sig-name { font-family: 'Cinzel', serif; color: var(--accent); font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem;}
+.signature-entry .sig-msg { font-style: italic; color: #888; }
+.signatures-list::-webkit-scrollbar { width: 4px; }
+.signatures-list::-webkit-scrollbar-track { background: #000; }
+.signatures-list::-webkit-scrollbar-thumb { background: var(--accent); }
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    /* General Layout */
+    .split-layout { grid-template-columns: 1fr; gap: 2rem; }
+    section { padding: 4rem 0; }
+    .section-title { font-size: 2rem; margin-bottom: 2rem; }
+    
+    /* Typography */
+    .title { letter-spacing: 10px; }
+    .tagline { font-size: 0.9rem; letter-spacing: 3px; }
+    .hook-text { font-size: 1.3rem; }
+    
+    /* Flashlight Mobile Adjustments */
+    .flashlight-content h2 { font-size: 2.5rem !important; }
+    .flashlight-content p { font-size: 1rem !important; padding: 0 1rem; }
+    .hidden-symbols { font-size: 2rem !important; letter-spacing: 10px !important; }
+    
+    /* UI Buttons */
+    .cta-container { flex-direction: column; gap: 1rem; padding: 0 2rem; }
+    .btn { padding: 1rem 1.5rem; font-size: 0.9rem; width: 100%; box-sizing: border-box; }
+    
+    /* Interactive Elements */
+    .door-container { height: 80px; max-width: 90%; }
+    .interact-subtitle { margin-bottom: 2rem; font-size: 0.9rem; padding: 0 1rem; }
+    .guestbook-container { padding: 1rem; max-width: 90%; }
+    .signature-form input { font-size: 1rem; }
+    
+    /* Fake Light Mode Toggle */
+    .theme-toggle { top: 10px; right: 10px; padding: 6px 12px; font-size: 0.8rem; }
+    
+    /* Footer */
+    footer { padding: 3rem 0 2rem; }
+    footer h2 { font-size: 1.3rem; padding: 0 1rem; }
+    .footer-links { flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+}
+
+/* Hide Custom Cursor & Enable Native Scroll on Mobile/Touch Devices */
+@media (pointer: coarse) {
+    #cursor-glow { display: none !important; }
+    * { cursor: auto !important; }
+    body, .hero, .flashlight-section, .door-container, .btn, .footer-links a { cursor: auto !important; }
+}
